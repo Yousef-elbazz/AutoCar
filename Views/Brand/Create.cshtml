@@ -1,0 +1,47 @@
+﻿@model AutoCar.Data.Models.Brand
+@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "Create Brand";
+}
+
+
+<h1 class="text-center my-4">Create Brand</h1>
+<h4 class="text-center text-muted mb-4">Please enter the brand details</h4>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Brand Name Input Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="name" class="control-label"></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa fa-clipboard-list"></i></span>
+                        <input asp-for="name" class="form-control" placeholder="Enter brand name" />
+                    </div>
+                    <span asp-validation-for="name" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Create</button>
+                </div>
+            </form>
+
+            <!-- Back to List Link -->
+            <div class="mt-3">
+                <a asp-action="Index" class="btn btn-link">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

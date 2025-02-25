@@ -1,0 +1,45 @@
+﻿@model IEnumerable<AutoCar.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Categories</h1>
+
+    <div class="mb-3">
+        <a class="btn btn-primary" asp-action="Create">Create New Category</a>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td class="d-flex justify-content-around">
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.CategoryId">Details</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Optional: Success message -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
