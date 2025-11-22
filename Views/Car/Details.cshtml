@@ -1,54 +1,104 @@
 ﻿@model AutoCar.Car
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Car Details";
 }
 
-<h1>Details</h1>
+<div class="section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full center margin_bottom_30">
+                    <h2 class="heading_main orange_heading"><i class="fa fa-info-circle"></i> Car Details</h2>
+                    <p style="color: #666; margin-top: 10px;">Complete information about this vehicle</p>
+                </div>
+            </div>
+        </div>
 
-<div>
-    <h4>Car</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand.BrandId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CarId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-lg" style="border-radius: 20px; border: none; overflow: hidden;">
+                    <!-- Car Image/Icon Header -->
+                    <div style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fa fa-car" style="font-size: 100px; color: white;"></i>
+                    </div>
+
+                    <div class="card-body" style="padding: 40px;">
+                        <!-- Car Title -->
+                        <div class="text-center mb-4">
+                            <h3 style="color: #f7471c; font-weight: bold;">@Model.Brand?.name @Model.Model</h3>
+                            <p class="text-muted">@Model.Category?.Name</p>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Car Details Grid -->
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="detail-item" style="padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                                    <p class="text-muted mb-1"><i class="fa fa-bookmark"></i> Brand</p>
+                                    <h5 style="color: #333; font-weight: bold;">@(Model.Brand?.name ?? "N/A")</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="detail-item" style="padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                                    <p class="text-muted mb-1"><i class="fa fa-car"></i> Model</p>
+                                    <h5 style="color: #333; font-weight: bold;">@Model.Model</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="detail-item" style="padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                                    <p class="text-muted mb-1"><i class="fa fa-calendar"></i> Year</p>
+                                    <h5 style="color: #333; font-weight: bold;">@Model.Year</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="detail-item" style="padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                                    <p class="text-muted mb-1"><i class="fa fa-list"></i> Category</p>
+                                    <h5 style="color: #333; font-weight: bold;">@(Model.Category?.Name ?? "N/A")</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb-4">
+                                <div class="detail-item" style="padding: 25px; background: linear-gradient(135deg, #f7471c 0%, #ff6b6b 100%); border-radius: 10px; text-align: center;">
+                                    <p class="mb-1" style="color: rgba(255,255,255,0.9);"><i class="fa fa-dollar"></i> Price</p>
+                                    <h3 style="color: white; font-weight: bold; margin: 0;">$@Model.Price.ToString("N0")</h3>
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(Model.Description))
+                            {
+                                <div class="col-md-12 mb-4">
+                                    <div class="detail-item" style="padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                                        <p class="text-muted mb-2"><i class="fa fa-info-circle"></i> Description</p>
+                                        <p style="color: #555; line-height: 1.8;">@Model.Description</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-3 justify-content-between flex-wrap">
+                            <a class="btn btn-secondary btn-lg" asp-action="Index">
+                                <i class="fa fa-arrow-left"></i> Back to List
+                            </a>
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-warning btn-lg" asp-action="Edit" asp-route-id="@Model.CarId">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-lg" asp-action="Delete" asp-route-id="@Model.CarId">
+                                    <i class="fa fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

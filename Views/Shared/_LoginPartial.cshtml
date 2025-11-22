@@ -2,25 +2,39 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff; font-weight: 500; padding: 10px 15px;">
+            <i class="fa fa-user-circle"></i> @User.Identity?.Name
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="background: #2a2a2a; border: none; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <li>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" style="color: #fff; padding: 10px 20px; transition: all 0.3s;">
+                    <i class="fa fa-user"></i> Manage Account
+                </a>
+            </li>
+            <li><hr class="dropdown-divider" style="border-color: rgba(255,255,255,0.1);"></li>
+            <li>
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                    <button type="submit" class="dropdown-item" style="color: #fff; padding: 10px 20px; transition: all 0.3s; background: none; border: none; width: 100%; text-align: left;">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register" style="color: #fff; font-weight: 500; padding: 10px 15px; transition: all 0.3s;">
+            <i class="fa fa-user-plus"></i> Register
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="color: #fff; font-weight: 500; padding: 10px 15px; transition: all 0.3s;">
+            <i class="fa fa-sign-in"></i> Login
+        </a>
     </li>
 }
-</ul>
